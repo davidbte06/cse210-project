@@ -1,0 +1,21 @@
+What program are we going to create? Use your brainstorming from the solo checkpoint to answer this question together.
+-A pixel art version of nephi hunting a deer
+
+What technologies will we use? The answer to this question is mostly already decided. Just take a minute to remind yourselves of the language, libraries and anything else you plan on using.
+-python
+-arcade
+-arcade.Sprites
+-arcade.Sound
+
+What features will we include? The goal of asking this question is to identify what will and what won't be included. Use this simple feature planning guide to help you.
+-A player moving Nephi and shooting an arrow 
+-A deer moving randomly on screen
+-Score
+-Arrows
+-sounds 
+
+What is your timeline? The answer to this question is mostly already decided. Just take a minute to review the rest of the course schedule together.
+Alpha Release - October 17th 
+Beta Release - October 21st
+Release Candidate - October 24th
+Stable Release - October 27th
