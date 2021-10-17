@@ -1,6 +1,6 @@
 import arcade
 
-from my_game import MyGame
+from nephiHunting.my_second_game import MyGame
 
 def main():
     """Main function"""
