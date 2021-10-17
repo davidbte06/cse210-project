@@ -1,5 +1,5 @@
 import arcade
-import arcade_constants as CONS
+import nephiHunting.arcade_constants as CONS
 import random
 
 class MyGame(arcade.Window):
@@ -41,7 +41,7 @@ class MyGame(arcade.Window):
         self.scene.add_sprite_list("Invisible")
 
         # Set up deer
-        image_source = "character/deer.png"
+        image_source = "nephiHunting/assets/images/deer.png"
         self.deer_sprite = arcade.Sprite(image_source, CONS.DEER_SCALING)
         self.deer_sprite.center_x = -50
         self.deer_sprite.center_y = 500
@@ -51,7 +51,7 @@ class MyGame(arcade.Window):
         
 
         # Set up character
-        image_source = "character/my_avatar.png"
+        image_source = "nephiHunting/assets/images/my_avatar.png"
         self.player_sprite = arcade.Sprite(image_source, CONS.CHARACTER_SCALING)
         self.player_sprite.center_x = 500
         self.player_sprite.center_y = 64
