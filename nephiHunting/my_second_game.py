@@ -18,6 +18,9 @@ class MyGame(arcade.Window):
         # Separate variable that holds the player sprite
         self.deer_sprite = None
 
+        # Separate variable that holds the player sprite
+        self.arrow_sprite = None
+
         # Our physics engine
         self.physics_engine = None
 
@@ -43,6 +46,7 @@ class MyGame(arcade.Window):
         self.scene.add_sprite_list("Deer")
         self.scene.add_sprite_list("Player")
         self.scene.add_sprite_list("Invisible")
+        self.scene.add_sprite_list("Arrow")
 
         # Set up deer
         image_source = "nephiHunting/assets/images/new_deer.png"
@@ -76,6 +80,14 @@ class MyGame(arcade.Window):
 
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.scene.get_sprite_list("Walls"))
         self.deer_physics_engine = arcade.PhysicsEngineSimple(self.deer_sprite, self.scene.get_sprite_list("Invisible"))
+
+        # Set up arrow
+        image_source = ""
+        self.arrow_sprite = arcade.Sprite(image_source, CONS.CHARACTER_SCALING)
+        self.arrow_sprite.center_x = 500
+        self.arrow_sprite.center_y = 64
+
+        self.scene.add_sprite("Arrow", self.arrow_sprite)
 
     def on_draw(self):
         """Render the screen"""
