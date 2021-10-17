@@ -26,11 +26,15 @@ class MyGame(arcade.Window):
 
         # Load sounds
         self.collect_coin_sound = arcade.load_sound(":resources:sounds/coin1.wav")
-        self.jump_sound = arcade.load_sound(":resources:sounds/jump1.wav")
+        self.jump_sound = arcade.load_sound("nephiHunting/assets/sounds/jump_deer.mp3")
 
+        # To move the deer
         self.bounce = 0
 
         self.deer_auto_direction = CONS.PLAYER_MOVEMENT_SPEED
+
+        # Background image
+        self.background = None
 
     def setup(self):
         """Set up the game here. Call this function to restart the game.
@@ -45,7 +49,7 @@ class MyGame(arcade.Window):
         self.scene.add_sprite_list("Arrow")
 
         # Set up deer
-        image_source = "nephiHunting/assets/images/deer.png"
+        image_source = "nephiHunting/assets/images/new_deer.png"
         self.deer_sprite = arcade.Sprite(image_source, CONS.DEER_SCALING)
         self.deer_sprite.center_x = -50
         self.deer_sprite.center_y = 500
@@ -71,6 +75,9 @@ class MyGame(arcade.Window):
             wall.center_y = 32
             self.scene.add_sprite("Walls", wall)
 
+        # Load the background image.
+        self.background = arcade.load_texture("nephiHunting/assets/images/desert_background.png")
+
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.scene.get_sprite_list("Walls"))
         self.deer_physics_engine = arcade.PhysicsEngineSimple(self.deer_sprite, self.scene.get_sprite_list("Invisible"))
 
@@ -87,6 +94,8 @@ class MyGame(arcade.Window):
 
         arcade.start_render()
         # Code to draw the screen goes here.
+        # Draw the background texture
+        arcade.draw_lrwh_rectangle_textured(0, 0, CONS.SCREEN_WIDTH, CONS.SCREEN_HEIGHT, self.background)
 
         # Draw our sprites
         self.scene.draw()
@@ -117,25 +126,30 @@ class MyGame(arcade.Window):
             self.deer_auto_direction = -CONS.PLAYER_MOVEMENT_SPEED
             self.deer_sprite.change_x = self.deer_auto_direction
             self.bounce += 1
+            arcade.play_sound(self.jump_sound)
         
         if self.deer_sprite.center_x == reference_num - 300 and self.bounce == 1:
             self.deer_auto_direction = CONS.PLAYER_MOVEMENT_SPEED
             self.deer_sprite.change_x = self.deer_auto_direction
             self.bounce += 1
+            arcade.play_sound(self.jump_sound)
 
         if self.deer_sprite.center_x == reference_num + 300 and self.bounce == 2:
             self.deer_auto_direction = -CONS.PLAYER_MOVEMENT_SPEED
             self.deer_sprite.change_x = self.deer_auto_direction
             self.bounce += 1
+            arcade.play_sound(self.jump_sound)
 
         if self.deer_sprite.center_x == reference_num and self.bounce == 3:
             self.deer_auto_direction = CONS.PLAYER_MOVEMENT_SPEED
             self.deer_sprite.change_x = self.deer_auto_direction
             self.bounce += 1
+            arcade.play_sound(self.jump_sound)
 
         if self.deer_sprite.center_x > CONS.SCREEN_WIDTH + 50 and self.bounce == 4:
             self.deer_sprite.center_x = -50
             self.bounce = 0
+            arcade.play_sound(self.jump_sound)
 
     def on_update(self, delta_time):
         """Movement and game logic"""
