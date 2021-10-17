@@ -52,17 +52,17 @@ class MyGame(arcade.Window):
         image_source = "nephiHunting/assets/images/new_deer.png"
         self.deer_sprite = arcade.Sprite(image_source, CONS.DEER_SCALING)
         self.deer_sprite.center_x = -50
-        self.deer_sprite.center_y = 500
+        self.deer_sprite.center_y = 450
 
 
         self.scene.add_sprite("Deer", self.deer_sprite)
         
 
         # Set up character
-        image_source = "nephiHunting/assets/images/my_avatar.png"
+        image_source = "nephiHunting/assets/images/nephi_shooting.png"
         self.player_sprite = arcade.Sprite(image_source, CONS.CHARACTER_SCALING)
         self.player_sprite.center_x = 500
-        self.player_sprite.center_y = 64
+        self.player_sprite.center_y = 32
 
 
         self.scene.add_sprite("Player", self.player_sprite)
@@ -81,13 +81,13 @@ class MyGame(arcade.Window):
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.scene.get_sprite_list("Walls"))
         self.deer_physics_engine = arcade.PhysicsEngineSimple(self.deer_sprite, self.scene.get_sprite_list("Invisible"))
 
-        # Set up arrow
-        image_source = ""
-        self.arrow_sprite = arcade.Sprite(image_source, CONS.CHARACTER_SCALING)
-        self.arrow_sprite.center_x = 500
-        self.arrow_sprite.center_y = 64
+        # # Set up arrow
+        # image_source = ""
+        # self.arrow_sprite = arcade.Sprite(image_source, CONS.CHARACTER_SCALING)
+        # self.arrow_sprite.center_x = 500
+        # self.arrow_sprite.center_y = 64
 
-        self.scene.add_sprite("Arrow", self.arrow_sprite)
+        # self.scene.add_sprite("Arrow", self.arrow_sprite)
 
     def on_draw(self):
         """Render the screen"""

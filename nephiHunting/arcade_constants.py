@@ -3,8 +3,8 @@ SCREEN_HEIGHT = 650
 SCREEN_TITLE = "Nephi Hunting"
 
 # Constants used to scale our sprites from their original size
-CHARACTER_SCALING = 0.5
-DEER_SCALING = 0.25
+CHARACTER_SCALING = 1
+DEER_SCALING = 0.16
 TILE_SCALING = 0.5
 COIN_SCALING = 0.5
 
