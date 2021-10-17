@@ -2,6 +2,7 @@ import arcade
 import nephiHunting.arcade_constants as CONS
 import random
 
+
 class MyGame(arcade.Window):
     """Main aplication class.
     """
@@ -20,6 +21,10 @@ class MyGame(arcade.Window):
 
         # Separate variable that holds the player sprite
         self.arrow_sprite = None
+        self.shoot_pressed = False
+        self.can_shoot = False
+        self.shoot_timer = 0
+        self.shoot_sound = arcade.load_sound("nephiHunting/assets/sounds/arrow-whizz.wav")
 
         # Our physics engine
         self.physics_engine = None
@@ -82,10 +87,10 @@ class MyGame(arcade.Window):
         self.deer_physics_engine = arcade.PhysicsEngineSimple(self.deer_sprite, self.scene.get_sprite_list("Invisible"))
 
         # Set up arrow
-        image_source = ":resources:images/space_shooter/laserRed01.png"
-        self.arrow_sprite = arcade.Sprite(image_source, CONS.CHARACTER_SCALING)
-        self.arrow_sprite.center_x = self.player_sprite.center_x
-        self.arrow_sprite.center_y = self.player_sprite.center_y
+        self.can_shoot = True
+        self.shoot_timer = 0
+        self.scene.add_sprite_list(CONS.LAYER_NAME_ARROWS)
+
 
         self.scene.add_sprite("Arrow", self.arrow_sprite)
 
@@ -107,6 +112,8 @@ class MyGame(arcade.Window):
             self.player_sprite.change_x = -CONS.PLAYER_MOVEMENT_SPEED
         elif key == arcade.key.RIGHT or key == arcade.key.D:
             self.player_sprite.change_x = CONS.PLAYER_MOVEMENT_SPEED
+        if key == arcade.key.Q:
+            self.shoot_pressed = True
 
 
     def on_key_release(self, key, modifiers):
@@ -116,6 +123,8 @@ class MyGame(arcade.Window):
             self.player_sprite.change_x = 0
         elif key == arcade.key.RIGHT or key == arcade.key.D:
             self.player_sprite.change_x = 0
+        if key == arcade.key.Q:
+            self.shoot_pressed = False
 
     def move(self):
         reference_num = 600
@@ -158,3 +167,31 @@ class MyGame(arcade.Window):
         self.move()
         self.physics_engine.update()
         self.deer_physics_engine.update()
+        
+        # Determines if player shoot
+        if self.can_shoot:
+            if self.shoot_pressed:
+                arcade.play_sound(self.shoot_sound)
+                arrow = arcade.Sprite(
+                    "nephiHunting/assets/images/pixel_arrow.png",
+                    CONS.SPRITE_SCALING_LASER,
+                )
+                
+                arrow.change_y = CONS.BULLET_SPEED
+
+
+                arrow.center_x = self.player_sprite.center_x
+                arrow.center_y = self.player_sprite.center_y
+
+                self.scene.add_sprite(CONS.LAYER_NAME_ARROWS, arrow)
+
+                self.can_shoot = False
+        else:
+            self.shoot_timer += 1
+            if self.shoot_timer == CONS.SHOOT_SPEED:
+                self.can_shoot = True
+                self.shoot_timer = 0
+
+        self.scene.update(
+            [CONS.LAYER_NAME_ARROWS]
+        )
