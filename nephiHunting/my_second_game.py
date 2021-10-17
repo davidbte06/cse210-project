@@ -75,10 +75,10 @@ class MyGame(arcade.Window):
         self.deer_physics_engine = arcade.PhysicsEngineSimple(self.deer_sprite, self.scene.get_sprite_list("Invisible"))
 
         # Set up arrow
-        image_source = ""
+        image_source = ":resources:images/space_shooter/laserRed01.png"
         self.arrow_sprite = arcade.Sprite(image_source, CONS.CHARACTER_SCALING)
-        self.arrow_sprite.center_x = 500
-        self.arrow_sprite.center_y = 64
+        self.arrow_sprite.center_x = self.player_sprite.center_x
+        self.arrow_sprite.center_y = self.player_sprite.center_y
 
         self.scene.add_sprite("Arrow", self.arrow_sprite)
 
@@ -98,6 +98,7 @@ class MyGame(arcade.Window):
             self.player_sprite.change_x = -CONS.PLAYER_MOVEMENT_SPEED
         elif key == arcade.key.RIGHT or key == arcade.key.D:
             self.player_sprite.change_x = CONS.PLAYER_MOVEMENT_SPEED
+
 
     def on_key_release(self, key, modifiers):
         """Called when the user releases a key."""
