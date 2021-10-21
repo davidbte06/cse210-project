@@ -5,6 +5,14 @@ from game.nephi import Nephi
 from game.deer import Deer
 from game.arrow import Arrow
 
+from enum import Enum
+
+class GameState(Enum):
+    
+    MENU = 1
+    GAME_RUNNING = 2
+    TARGET_DEFEATED = 3
+    GAME_OVER = 4
 
 class Director(arcade.Window):
     """Main aplication class.
@@ -28,6 +36,13 @@ class Director(arcade.Window):
 
         # Our physics engine
         self.physics_engine = None
+
+        # Initialize the game state
+        self.current_state = GameState.MENU
+
+        self.SCREEN_WIDTH = 1000
+        self.SCREEN_HEIGHT = 650
+
 
 
     def setup(self):
@@ -71,8 +86,22 @@ class Director(arcade.Window):
         self.shoot_timer = 0
         self.scene.add_sprite_list(constants.LAYER_NAME_ARROWS)
 
+        #Menu
+        self.background_gameover = arcade.load_texture("nephiHunting/assets/images/bg2.png")
 
         # self.scene.add_sprite("Arrow", self.arrow_sprite)
+
+    def draw_menu(self):
+        arcade.draw_texture_rectangle(
+            self.SCREEN_WIDTH // 2,
+            self.SCREEN_HEIGHT // 2,
+            self.SCREEN_WIDTH,
+            self.SCREEN_HEIGHT,
+            self.background_gameover
+        )
+
+        output = "Press <ENTER> To Start"
+        arcade.draw_text(output, 300, 325, arcade.color.WHITE, 24,) 
 
     def on_draw(self):
         """Render the screen"""
@@ -84,6 +113,10 @@ class Director(arcade.Window):
         # Draw our sprites
         self.scene.draw()
 
+        # Draw menu
+        if self.current_state == GameState.MENU:
+            self.draw_menu()
+
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed."""
 
@@ -93,6 +126,17 @@ class Director(arcade.Window):
             self.nephi.change_x = constants.PLAYER_MOVEMENT_SPEED
         if key == arcade.key.Q:
             self.shoot_pressed = True
+
+        # Restart game
+        if (
+            key == arcade.key.ENTER and 
+            (
+                self.current_state == GameState.GAME_OVER or
+                self.current_state == GameState.MENU
+            )   
+        ):
+            self.setup()
+            self.current_state = GameState.GAME_RUNNING
 
 
     def on_key_release(self, key, modifiers):
