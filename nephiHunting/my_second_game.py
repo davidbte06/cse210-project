@@ -89,10 +89,7 @@ class MyGame(arcade.Window):
         # Set up arrow
         self.can_shoot = True
         self.shoot_timer = 0
-        self.scene.add_sprite_list(CONS.LAYER_NAME_ARROWS)
-
-
-        # self.scene.add_sprite("Arrow", self.arrow_sprite)
+        
 
     def on_draw(self):
         """Render the screen"""
@@ -178,20 +175,18 @@ class MyGame(arcade.Window):
                 )
                 
                 arrow.change_y = CONS.BULLET_SPEED
-
-
+                
                 arrow.center_x = self.player_sprite.center_x
                 arrow.center_y = self.player_sprite.center_y
 
                 self.scene.add_sprite(CONS.LAYER_NAME_ARROWS, arrow)
 
                 self.can_shoot = False
+                self.scene.add_sprite("Arrow", arrow)
         else:
             self.shoot_timer += 1
             if self.shoot_timer == CONS.SHOOT_SPEED:
                 self.can_shoot = True
                 self.shoot_timer = 0
 
-        self.scene.update(
-            [CONS.LAYER_NAME_ARROWS]
-        )
+        self.scene.update()
