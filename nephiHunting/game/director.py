@@ -88,7 +88,7 @@ class Director(arcade.Window):
 
         #Menu
         self.background_gameover = arcade.load_texture("nephiHunting/assets/images/bg2.png")
-        # self.logo = arcade.load_texture("nephiHunting/assets/images/logo.jpg")
+
         # self.scene.add_sprite("Arrow", self.arrow_sprite)
 
     def draw_menu(self):
@@ -99,8 +99,8 @@ class Director(arcade.Window):
             self.SCREEN_HEIGHT,
             self.background_gameover
         )
-
-        #Draw Logo
+ 
+ #Draw Logo
         self.logo_list = arcade.SpriteList()
         self.logo = arcade.Sprite("nephiHunting/assets/images/logo.jpg", 0.5)
         self.logo.center_x = self.SCREEN_WIDTH * 0.5
