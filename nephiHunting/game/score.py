@@ -28,7 +28,7 @@ def draw_game_over(self):
 
 def draw_game(self):
     # Display score
-    output = f"Press <space> to shoot"
+    output = f"Press <q> to shoot"
     arcade.draw_text(
         output, self.SCREEN_WIDTH*0.5, self.SCREEN_HEIGHT *
         0.05, (255, 255, 255), 12,
