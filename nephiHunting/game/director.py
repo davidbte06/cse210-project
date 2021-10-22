@@ -1,5 +1,12 @@
+""" Game director
+    Contains the director class, which has direct control over
+    the game loop and event handling.
+"""
+
 import arcade
 import random
+
+from arcade import scene
 from game import constants
 from game.nephi import Nephi
 from game.deer import Deer
@@ -7,10 +14,27 @@ from game.arrow import Arrow
 
 
 class Director(arcade.Window):
-    """Main aplication class.
+    """A code template for a person who directs the game. The responsibility of 
+    this class of objects is to control the sequence of play.
+    
+    Stereotype:
+        Controller
+
+    Attributes:
+        Background (variable): An empty variable.
+        Scene (variable): An empty variable.
+        Nephi (variable): An empty variable.
+        Deer (variable): An empty variable.
+        Shoot_pressed (boolean): Whether the key is pressed or not.
+        Can_shoot (boolean): Wether the player will be able to shoot or not.
+        Shoot_timer (Int): The time between shots.
     """
+
     def __init__(self):
-        """Arguments of my game. Setting up the window.
+        """The class constructor.
+        
+        Args:
+            self (Director): an instance of Director.
         """
         super().__init__(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT, constants.SCREEN_TITLE)
 
@@ -21,14 +45,15 @@ class Director(arcade.Window):
         self.nephi = None
         self.deer = None
 
-        self.arrow_sprite = None
         self.shoot_pressed = False
-        self.can_shoot = False
+        self.can_shoot = True
         self.shoot_timer = 0
+        
 
         # Our physics engine
         self.physics_engine = None
 
+        self.hit_sound = arcade.load_sound(constants.HIT)
 
     def setup(self):
         """Set up the game here. Call this function to restart the game.
@@ -40,7 +65,7 @@ class Director(arcade.Window):
         self.scene.add_sprite_list("Deer")
         self.scene.add_sprite_list("Player")
         self.scene.add_sprite_list("Invisible")
-        self.scene.add_sprite_list("Arrow")
+        self.scene.add_sprite_list(constants.LAYER_NAME_ARROWS)
 
         # Set up deer
         self.deer = Deer(constants.DEER_SPRITE, constants.DEER_SCALING)
@@ -65,15 +90,7 @@ class Director(arcade.Window):
 
         self.physics_engine = arcade.PhysicsEngineSimple(self.nephi, self.scene.get_sprite_list("Walls"))
         self.deer_physics_engine = arcade.PhysicsEngineSimple(self.deer, self.scene.get_sprite_list("Invisible"))
-
-        # Set up arrow
-        self.can_shoot = True
-        self.shoot_timer = 0
-        self.scene.add_sprite_list(constants.LAYER_NAME_ARROWS)
-
-
-        # self.scene.add_sprite("Arrow", self.arrow_sprite)
-
+        
     def on_draw(self):
         """Render the screen"""
 
@@ -108,22 +125,34 @@ class Director(arcade.Window):
 
     def on_update(self, delta_time):
         """Movement and game logic"""
-
+        
         # Move the player with the physics engine
         self.deer.move()
         self.physics_engine.update()
         self.deer_physics_engine.update()
+        self.manage_shoot_interval()
+
+        #updates the scene.
+        self.scene.update()
         
-        # Determines if player shoot
+        arrows = arcade.check_for_collision_with_list(self.deer, self.scene.get_sprite_list(constants.LAYER_NAME_ARROWS))
+
+        for arrow in arrows:
+            
+            self.deer.center_x = - 50
+            arcade.play_sound(self.hit_sound)
+
+    def manage_shoot_interval(self):
+        """Manages the interval between shots"""
+
+        # An instance of Arrow class
+        arrow = Arrow()       
         if self.can_shoot:
             if self.shoot_pressed:
-                arrow = Arrow(constants.ARROW,constants.SPRITE_SCALING_LASER, self.nephi.center_x, self.nephi.center_y)
-                self.scene.add_sprite(constants.LAYER_NAME_ARROWS, arrow)
+                arrow.shoot(self.nephi.center_x, self.nephi.center_y, self.scene)
                 self.can_shoot = False
         else:
             self.shoot_timer += 1
             if self.shoot_timer == constants.SHOOT_SPEED:
                 self.can_shoot = True
                 self.shoot_timer = 0
-
-        self.scene.update([constants.LAYER_NAME_ARROWS])
