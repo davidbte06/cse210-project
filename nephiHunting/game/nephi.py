@@ -36,4 +36,3 @@ class Nephi(arcade.Sprite):
             self.texture = self.textures[1]
         elif self.change_x > 0:
             self.texture = self.textures[0]
-

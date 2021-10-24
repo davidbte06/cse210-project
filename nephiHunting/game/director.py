@@ -190,8 +190,8 @@ class Director(arcade.Window):
         score_text = f"Score: {self.score}"
         arcade.draw_text(score_text, 10, 10, arcade.csscolor.WHITE, 18,)
 
-        arrow_text = f"Arrows: {self.arrows}"
-        arcade.draw_text(arrow_text, 700, 10, arcade.csscolor.WHITE, 18,)
+        # arrow_text = f"Arrows: {self.arrows}"
+        # arcade.draw_text(arrow_text, 700, 10, arcade.csscolor.WHITE, 18,)
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed."""
@@ -263,7 +263,7 @@ class Director(arcade.Window):
             arcade.play_sound(self.hit_sound, 0.05)
             self.score += 1
 
-        if self.score == 3:
+        if self.score == 10:
             self.trigger_game_over()
 
     def manage_shoot_interval(self):
