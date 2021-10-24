@@ -58,8 +58,11 @@ class Director(arcade.Window):
         self.scene.add_sprite_list("Arrow")
 
         # Set up deer
-        self.deer = Deer(constants.DEER_SPRITE, constants.DEER_SCALING)
+        self.deer = Deer(constants.DEER_SPRITE, constants.DEER_SCALING, -50, 450, constants.PLAYER_MOVEMENT_SPEED)
         self.scene.add_sprite("Deer", self.deer)
+
+        self.deer2 = Deer(constants.DEER_SPRITE, constants.DEER_SCALING, 1050, 300, -constants.PLAYER_MOVEMENT_SPEED)
+        self.scene.add_sprite("Deer", self.deer2)
         
         # Set up character
         self.nephi = Nephi(constants.NEPHI_SPRITE, constants.NEPHI_SCALING)        
@@ -78,8 +81,10 @@ class Director(arcade.Window):
         # Load the background image.
         self.background = arcade.load_texture(constants.BACKGROUND)
 
+        # Physics engines
         self.physics_engine = arcade.PhysicsEngineSimple(self.nephi, self.scene.get_sprite_list("Walls"))
         self.deer_physics_engine = arcade.PhysicsEngineSimple(self.deer, self.scene.get_sprite_list("Invisible"))
+        self.deer2_physics_engine = arcade.PhysicsEngineSimple(self.deer2, self.scene.get_sprite_list("Invisible"))
 
         # Set up arrow
         self.can_shoot = True
@@ -162,9 +167,14 @@ class Director(arcade.Window):
         """Movement and game logic"""
 
         # Move the player with the physics engine
-        self.deer.move()
+        self.scene.get_sprite_list("Deer").update()
+
+        self.deer.move(600, 300, 900, 600)
+        self.deer2.move(500, 700, 250, 400)
+
         self.physics_engine.update()
         self.deer_physics_engine.update()
+        self.deer2_physics_engine.update()
         
         # Determines if player shoot
         if self.can_shoot:
