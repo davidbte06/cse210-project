@@ -175,6 +175,13 @@ class Director(arcade.Window):
         # Draw menu
         if self.current_state == GameState.MENU:
             self.draw_menu()
+
+            self.deer2.reset()
+            self.deer.reset()
+
+            self.deer2.initial_direction = 0
+            self.deer.initial_direction = 0
+
         elif self.current_state == GameState.GAME_RUNNING:
             self.on_draw
         else:
@@ -277,3 +284,9 @@ class Director(arcade.Window):
     def trigger_game_over(self):
         # time.sleep(delay)
         self.current_state = GameState.GAME_OVER
+        
+        self.deer2.reset()
+        self.deer.reset()
+
+        self.deer2.initial_direction = 0
+        self.deer.initial_direction = 0
