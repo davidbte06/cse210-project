@@ -4,45 +4,109 @@ from game import constants
 
 class Deer(arcade.Sprite):
 
-    def __init__(self, sprite, scale):
+    def __init__(self, sprite, scale, x, y, direction):
         arcade.Sprite.__init__(self, sprite, scale)
-        self.center_x = -50
-        self.center_y = 450
-        self.deer_auto_direction = constants.PLAYER_MOVEMENT_SPEED
+        self.initial_x = x
+        self.center_x = self.initial_x
+
+        self.center_y = y
+
+        self.initial_direction = direction
+        self.deer_direction = self.initial_direction
+
         self.bounce = 0
         self.jump_sound = arcade.load_sound(constants.JUMP)
 
+        # Animation
+        self.textures = []
 
-    def move(self):
-        reference_num = 600
-        self.change_x = self.deer_auto_direction
+        # Load a left facing texture and a right facing texture.
+        # flipped_horizontally=True will mirror the image we load.
+        texture = arcade.load_texture(constants.DEER_SPRITE)
+        self.textures.append(texture)
+        texture = arcade.load_texture(constants.DEER_SPRITE, flipped_horizontally=True)
+        self.textures.append(texture)
 
-        if self.center_x == reference_num and self.bounce == 0:
-            self.deer_auto_direction = -constants.PLAYER_MOVEMENT_SPEED
-            self.change_x = self.deer_auto_direction
+        # By default, face right.
+        self.texture = self.textures[0]
+
+
+    def move(self, b1, b2, b3, b4):
+        # reference_num = 600
+        self.change_x = self.deer_direction
+
+        if self.center_x == b1 and self.bounce == 0:
+            self.deer_direction = self.deer_direction * -1
+            self.change_x = self.deer_direction
             self.bounce += 1
             arcade.play_sound(self.jump_sound)
         
-        if self.center_x == reference_num - 300 and self.bounce == 1:
-            self.deer_auto_direction = constants.PLAYER_MOVEMENT_SPEED
-            self.change_x = self.deer_auto_direction
+        if self.center_x == b2 and self.bounce == 1:
+            self.deer_direction = self.deer_direction * -1
+            self.change_x = self.deer_direction
             self.bounce += 1
             arcade.play_sound(self.jump_sound)
 
-        if self.center_x == reference_num + 300 and self.bounce == 2:
-            self.deer_auto_direction = -constants.PLAYER_MOVEMENT_SPEED
-            self.change_x = self.deer_auto_direction
+        if self.center_x == b3 and self.bounce == 2:
+            self.deer_direction = self.deer_direction * -1
+            self.change_x = self.deer_direction
             self.bounce += 1
             arcade.play_sound(self.jump_sound)
 
-        if self.center_x == reference_num and self.bounce == 3:
-            self.deer_auto_direction = constants.PLAYER_MOVEMENT_SPEED
-            self.change_x = self.deer_auto_direction
+        if self.center_x == b4 and self.bounce == 3:
+            self.deer_direction = self.deer_direction * -1
+            self.change_x = self.deer_direction
             self.bounce += 1
             arcade.play_sound(self.jump_sound)
 
-        if self.center_x > constants.SCREEN_WIDTH + 50 and self.bounce == 4:
-            self.center_x = -50
+        if self.center_x > constants.SCREEN_WIDTH + 50 or self.center_x < constants.SCREEN_WIDTH -1050:
+            self.center_x = self.initial_x
+            self.deer_direction = self.initial_direction
             self.bounce = 0
             arcade.play_sound(self.jump_sound)
 
+    def reset(self):
+        self.center_x = self.initial_x
+        self.deer_direction = self.initial_direction
+        self.bounce = 0
+
+    def update(self):
+
+        # Figure out if we should face left or right
+        if self.deer_direction == 5:
+            self.texture = self.textures[0]
+        elif self.deer_direction == -5:
+            self.texture = self.textures[1]
+
+    # def move(self):
+    #     reference_num = 600
+    #     self.change_x = self.deer_auto_direction
+
+    #     if self.center_x == reference_num and self.bounce == 0:
+    #         self.deer_auto_direction = -constants.PLAYER_MOVEMENT_SPEED
+    #         self.change_x = self.deer_auto_direction
+    #         self.bounce += 1
+    #         arcade.play_sound(self.jump_sound)
+        
+    #     if self.center_x == reference_num - 300 and self.bounce == 1:
+    #         self.deer_auto_direction = constants.PLAYER_MOVEMENT_SPEED
+    #         self.change_x = self.deer_auto_direction
+    #         self.bounce += 1
+    #         arcade.play_sound(self.jump_sound)
+
+    #     if self.center_x == reference_num + 300 and self.bounce == 2:
+    #         self.deer_auto_direction = -constants.PLAYER_MOVEMENT_SPEED
+    #         self.change_x = self.deer_auto_direction
+    #         self.bounce += 1
+    #         arcade.play_sound(self.jump_sound)
+
+    #     if self.center_x == reference_num and self.bounce == 3:
+    #         self.deer_auto_direction = constants.PLAYER_MOVEMENT_SPEED
+    #         self.change_x = self.deer_auto_direction
+    #         self.bounce += 1
+    #         arcade.play_sound(self.jump_sound)
+
+    #     if self.center_x > constants.SCREEN_WIDTH + 50 and self.bounce == 4:
+    #         self.center_x = -50
+    #         self.bounce = 0
+    #         arcade.play_sound(self.jump_sound)
