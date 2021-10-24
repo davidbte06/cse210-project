@@ -58,31 +58,31 @@ class Deer(arcade.Sprite):
             self.deer_direction = self.deer_direction * -1
             self.change_x = self.deer_direction
             self.bounce += 1
-            arcade.play_sound(self.jump_sound)
+            arcade.play_sound(self.jump_sound, 0.05)
         
         if self.center_x == b2 and self.bounce == 1:
             self.deer_direction = self.deer_direction * -1
             self.change_x = self.deer_direction
             self.bounce += 1
-            arcade.play_sound(self.jump_sound)
+            arcade.play_sound(self.jump_sound, 0.05)
 
         if self.center_x == b3 and self.bounce == 2:
             self.deer_direction = self.deer_direction * -1
             self.change_x = self.deer_direction
             self.bounce += 1
-            arcade.play_sound(self.jump_sound)
+            arcade.play_sound(self.jump_sound, 0.05)
 
         if self.center_x == b4 and self.bounce == 3:
             self.deer_direction = self.deer_direction * -1
             self.change_x = self.deer_direction
             self.bounce += 1
-            arcade.play_sound(self.jump_sound)
+            arcade.play_sound(self.jump_sound, 0.05)
 
         if self.center_x > constants.SCREEN_WIDTH + 50 or self.center_x < constants.SCREEN_WIDTH -1050:
             self.center_x = self.initial_x
             self.deer_direction = self.initial_direction
             self.bounce = 0
-            arcade.play_sound(self.jump_sound)
+            arcade.play_sound(self.jump_sound, 0.05)
 
     def reset(self):
         self.center_x = self.initial_x

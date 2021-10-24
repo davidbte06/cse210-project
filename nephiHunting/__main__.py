@@ -1,4 +1,3 @@
-
 import arcade
 from game.director import Director
 

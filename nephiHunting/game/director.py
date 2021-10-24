@@ -202,6 +202,7 @@ class Director(arcade.Window):
         
         # Move the player with the physics engine
         self.scene.get_sprite_list("Deer").update()
+        self.scene.get_sprite_list("Player").update()
 
         self.deer.move(600, 300, 900, 600)
         self.deer2.move(500, 700, 250, 400)
@@ -221,7 +222,7 @@ class Director(arcade.Window):
             
             # self.deer.center_x = - 50
             self.deer.reset()
-            arcade.play_sound(self.hit_sound)
+            arcade.play_sound(self.hit_sound, 0.05)
             self.score += 1
 
         arrows = arcade.check_for_collision_with_list(self.deer2, self.scene.get_sprite_list(constants.LAYER_NAME_ARROWS))
@@ -230,7 +231,7 @@ class Director(arcade.Window):
             
             # self.deer2.center_x = - 50
             self.deer2.reset()
-            arcade.play_sound(self.hit_sound)
+            arcade.play_sound(self.hit_sound, 0.05)
             self.score += 1
 
     def manage_shoot_interval(self):
@@ -247,11 +248,3 @@ class Director(arcade.Window):
             if self.shoot_timer == constants.SHOOT_SPEED:
                 self.can_shoot = True
                 self.shoot_timer = 0
-
-        # self.scene.add_sprite(constants.LAYER_NAME_ARROWS, arrow)
-
-        # arrows_list = self.scene.get_sprite_list(constants.LAYER_NAME_ARROWS)
-
-        # for arrow in arrows_list:
-        #     if arrow.center_y > 650:
-        #         self.arrows -= 1

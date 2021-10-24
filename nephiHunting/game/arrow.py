@@ -32,6 +32,6 @@ class Arrow(arcade.Sprite):
         self.center_x = center_x
         self.center_y = center_y
         self.change_y = constants.ARROW_SPEED
-        arcade.play_sound(self.shoot_sound)
+        arcade.play_sound(self.shoot_sound, 0.05)
         scene.add_sprite(constants.LAYER_NAME_ARROWS, self)
 
