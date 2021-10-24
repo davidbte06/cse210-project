@@ -68,6 +68,9 @@ class Director(arcade.Window):
         self.SCREEN_WIDTH = 1000
         self.SCREEN_HEIGHT = 650
 
+        self.score = 0
+        self.arrows = 10
+
 
 
     def setup(self):
@@ -155,6 +158,12 @@ class Director(arcade.Window):
         if self.current_state == GameState.MENU:
             self.draw_menu()
 
+        score_text = f"Score: {self.score}"
+        arcade.draw_text(score_text, 10, 10, arcade.csscolor.WHITE, 18,)
+
+        arrow_text = f"Arrows: {self.arrows}"
+        arcade.draw_text(arrow_text, 700, 10, arcade.csscolor.WHITE, 18,)
+
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed."""
 
@@ -207,10 +216,22 @@ class Director(arcade.Window):
         
         arrows = arcade.check_for_collision_with_list(self.deer, self.scene.get_sprite_list(constants.LAYER_NAME_ARROWS))
 
+
         for arrow in arrows:
             
-            self.deer.center_x = - 50
+            # self.deer.center_x = - 50
+            self.deer.reset()
             arcade.play_sound(self.hit_sound)
+            self.score += 1
+
+        arrows = arcade.check_for_collision_with_list(self.deer2, self.scene.get_sprite_list(constants.LAYER_NAME_ARROWS))
+
+        for arrow in arrows:
+            
+            # self.deer2.center_x = - 50
+            self.deer2.reset()
+            arcade.play_sound(self.hit_sound)
+            self.score += 1
 
     def manage_shoot_interval(self):
         """Manages the interval between shots"""
@@ -226,3 +247,11 @@ class Director(arcade.Window):
             if self.shoot_timer == constants.SHOOT_SPEED:
                 self.can_shoot = True
                 self.shoot_timer = 0
+
+        # self.scene.add_sprite(constants.LAYER_NAME_ARROWS, arrow)
+
+        # arrows_list = self.scene.get_sprite_list(constants.LAYER_NAME_ARROWS)
+
+        # for arrow in arrows_list:
+        #     if arrow.center_y > 650:
+        #         self.arrows -= 1
