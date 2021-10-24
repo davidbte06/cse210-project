@@ -71,8 +71,6 @@ class Director(arcade.Window):
         self.score = 0
         self.arrows = 10
 
-
-
     def setup(self):
         """Set up the game here. Call this function to restart the game.
         """
@@ -120,7 +118,7 @@ class Director(arcade.Window):
         self.scene.add_sprite_list(constants.LAYER_NAME_ARROWS)
 
         #Menu
-        self.background_gameover = arcade.load_texture("nephiHunting/assets/images/bg.jpg")
+        self.background_menu = arcade.load_texture("nephiHunting/assets/images/bg.jpg")
 
         # self.scene.add_sprite("Arrow", self.arrow_sprite)
 
@@ -130,7 +128,7 @@ class Director(arcade.Window):
             self.SCREEN_HEIGHT // 2,
             self.SCREEN_WIDTH,
             self.SCREEN_HEIGHT,
-            self.background_gameover
+            self.background_menu
         )
  
         #Draw Logo
@@ -143,6 +141,26 @@ class Director(arcade.Window):
 
         output = ""
         arcade.draw_text(output, 300, 125, arcade.color.WHITE, 24,) 
+
+    def draw_game_over(self):
+        
+        arcade.draw_texture_rectangle(
+            self.SCREEN_WIDTH // 2, 
+            self.SCREEN_HEIGHT // 2,
+            self.SCREEN_WIDTH, 
+            self.SCREEN_HEIGHT, 
+            self.background_menu)
+        
+        self.gameover_list = arcade.SpriteList()
+        self.gameover = arcade.Sprite("nephiHunting/assets/images/gameover.png")
+        self.gameover.center_x = self.SCREEN_WIDTH * 0.5
+        self.gameover.center_y = self.SCREEN_HEIGHT * 0.6
+        self.gameover_list.append(self.gameover)
+        self.gameover_list.draw()
+        output = ""
+        arcade.draw_text(output, 300, 125, arcade.color.BLACK, 24,) 
+        
+
 
     def on_draw(self):
         """Render the screen"""
@@ -157,6 +175,10 @@ class Director(arcade.Window):
         # Draw menu
         if self.current_state == GameState.MENU:
             self.draw_menu()
+        elif self.current_state == GameState.GAME_RUNNING:
+            self.on_draw
+        else:
+            self.draw_game_over()
 
         score_text = f"Score: {self.score}"
         arcade.draw_text(score_text, 10, 10, arcade.csscolor.WHITE, 18,)
@@ -234,6 +256,9 @@ class Director(arcade.Window):
             arcade.play_sound(self.hit_sound, 0.05)
             self.score += 1
 
+        if self.score == 3:
+            self.trigger_game_over()
+
     def manage_shoot_interval(self):
         """Manages the interval between shots"""
 
@@ -248,3 +273,7 @@ class Director(arcade.Window):
             if self.shoot_timer == constants.SHOOT_SPEED:
                 self.can_shoot = True
                 self.shoot_timer = 0
+
+    def trigger_game_over(self):
+        # time.sleep(delay)
+        self.current_state = GameState.GAME_OVER
