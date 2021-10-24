@@ -117,7 +117,7 @@ class Director(arcade.Window):
         self.scene.add_sprite_list(constants.LAYER_NAME_ARROWS)
 
         #Menu
-        self.background_gameover = arcade.load_texture("nephiHunting/assets/images/bg2.png")
+        self.background_gameover = arcade.load_texture("nephiHunting/assets/images/bg.jpg")
 
         # self.scene.add_sprite("Arrow", self.arrow_sprite)
 
@@ -130,15 +130,15 @@ class Director(arcade.Window):
             self.background_gameover
         )
  
- #Draw Logo
+        #Draw Logo
         self.logo_list = arcade.SpriteList()
-        self.logo = arcade.Sprite("nephiHunting/assets/images/logo.jpg", 0.5)
+        self.logo = arcade.Sprite("nephiHunting/assets/images/new_menu_proto.png", 1)
         self.logo.center_x = self.SCREEN_WIDTH * 0.5
         self.logo.center_y = self.SCREEN_HEIGHT * 0.6
         self.logo_list.append(self.logo)
         self.logo_list.draw()
 
-        output = "Press <ENTER> To Start"
+        output = ""
         arcade.draw_text(output, 300, 125, arcade.color.WHITE, 24,) 
 
     def on_draw(self):
