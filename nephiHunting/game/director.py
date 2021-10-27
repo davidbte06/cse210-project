@@ -72,7 +72,7 @@ class Director(arcade.Window):
         self.physics_engine = None
 
         self.hit_sound = arcade.load_sound(constants.HIT)
-        self.background_music = arcade.load_sound("nephiHunting/assets/sounds/tribal-ritual.wav")
+        self.background_music = arcade.load_sound(constants.BACKGROUND_MUSIC)
         # Initialize the game state
         self.current_state = GameState.MENU
 
@@ -134,7 +134,7 @@ class Director(arcade.Window):
         self.scene.add_sprite_list(constants.LAYER_NAME_ARROWS)
 
         #Menu
-        self.background_menu = arcade.load_texture("nephiHunting/assets/images/bg.jpg")
+        self.background_menu = arcade.load_texture(constants.BACKGROUND_MENU)
 
         # self.scene.add_sprite("Arrow", self.arrow_sprite)
 
@@ -153,7 +153,7 @@ class Director(arcade.Window):
 
         #Draw Logo
         self.logo_list = arcade.SpriteList()
-        self.logo = arcade.Sprite("nephiHunting/assets/images/new_menu_proto.png", 1)
+        self.logo = arcade.Sprite(constants.MENU_PROTO, 1)
         self.logo.center_x = self.SCREEN_WIDTH * 0.5
         self.logo.center_y = self.SCREEN_HEIGHT * 0.6
         self.logo_list.append(self.logo)
@@ -175,7 +175,7 @@ class Director(arcade.Window):
             self.background_menu)
 
         self.gameover_list = arcade.SpriteList()
-        self.gameover = arcade.Sprite("nephiHunting/assets/images/gameover.png")
+        self.gameover = arcade.Sprite(constants.GAME_OVER)
         self.gameover.center_x = self.SCREEN_WIDTH * 0.5
         self.gameover.center_y = self.SCREEN_HEIGHT * 0.6
         self.gameover_list.append(self.gameover)
