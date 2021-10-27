@@ -7,7 +7,7 @@ class Nephi(arcade.Sprite):
 
     def __init__(self, sprite, scale):
         """The class constructor.
-        
+
         Args:
             self (Director): an instance of Director.
         """
