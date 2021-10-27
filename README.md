@@ -1,7 +1,7 @@
 # Nephi Hunting
 This game is based on the Dog Hunt game, we used the idea and based it on a popular story from the Book of Mormon, when Nephi had to hunt animals in the desert to support his family.
 
-<img src="assets/images/logo.jpg" alt="My cool logo"/>
+![image text] (https://github.com/davidbte06/cse210-project/blob/main/nephiHunting/assets/images/logo.jpg)
 
 ## Getting Started
 ---
