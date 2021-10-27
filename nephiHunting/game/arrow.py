@@ -20,7 +20,7 @@ class Arrow(arcade.Sprite):
         """The class constructor.
 
         Args:
-            self (Director): an instance of Director.
+            self (Arrow): an instance of Arrow.
         """
         super().__init__(constants.ARROW, constants.ARROW_SCALING)
         self.shoot_sound = arcade.load_sound(constants.ARROW_SOUND)
@@ -28,6 +28,12 @@ class Arrow(arcade.Sprite):
     def shoot(self, center_x, center_y, scene):
         """The method shoot, creates the arrow, sets the arrow in a specific point,
             adds the sound and shoots the arrow.
+
+        Args: 
+            self (Arrow): an instance of Arrow.
+            center_x (Point): A point.
+            center_y (Point): A point.
+            scene (arcade): An instance of Arcade library.
         """
         self.center_x = center_x
         self.center_y = center_y
