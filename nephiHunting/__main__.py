@@ -1,3 +1,7 @@
+"""
+Entrypoint of the application. Calls Director and arcade run
+"""
+
 import arcade
 from game.director import Director
 
