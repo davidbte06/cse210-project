@@ -1,7 +1,8 @@
 import pytest
 import arcade
 from game.director import Director
-from game.director import Deer
+from game.director import GameState
+from game.deer import Deer
 from game import constants
 
 
@@ -20,12 +21,10 @@ def director_preset():
 def test_trigger_game_over__should_change_game_state(director_preset):
     """
         Tests that arrow shoots.
-
     """
-    # arrow.shoot(500, 32, arcade.Scene())
+    assert director_preset.current_state != GameState.GAME_OVER
     director_preset.trigger_game_over()
-    assert True
-
+    assert director_preset.current_state == GameState.GAME_OVER
 
 
 pytest.main(["-v", "--tb=line", "-rN", "tests/arrow_test.py"])
