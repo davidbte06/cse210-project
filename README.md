@@ -7,7 +7,7 @@ Make sure you have Python 3.8.0 or newer and arcade library.
 
 pip3 install arcade
 ```
-After you've installed the required libraries, open a terminal and browse to the 
+After you've installed the required libraries, open a terminal and browse to the
 project's root folder. Start the program.
 ```
 ## Project Structure
@@ -16,6 +16,7 @@ The project files and folders are organized as follows:
 ```
 root                    (project root folder)
 +-- nephiHunting              (source code for game)
+  +-- assets              (assets for the game)
   +-- game              (specific game classes)
   +-- __init__.py       (python package file)
   +-- __main__.py       (entry point for program)
