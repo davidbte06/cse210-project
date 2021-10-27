@@ -310,8 +310,8 @@ class Director(arcade.Window):
             self.score += 1
             arrow.remove_from_sprite_lists()
 
-        # if self.score == 10:
-        #     self.trigger_game_over()
+        if self.score == 15:
+            self.trigger_game_over()
         if self.arrows == 0:
             self.trigger_game_over()
 
