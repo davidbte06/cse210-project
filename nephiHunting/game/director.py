@@ -16,16 +16,16 @@ from game.arrow import Arrow
 from enum import Enum
 
 class GameState(Enum):
-    
+
     MENU = 1
     GAME_RUNNING = 2
     TARGET_DEFEATED = 3
     GAME_OVER = 4
 
 class Director(arcade.Window):
-    """A code template for a person who directs the game. The responsibility of 
+    """A code template for a person who directs the game. The responsibility of
     this class of objects is to control the sequence of play.
-    
+
     Stereotype:
         Controller
 
@@ -41,7 +41,7 @@ class Director(arcade.Window):
 
     def __init__(self):
         """The class constructor.
-        
+
         Args:
             self (Director): an instance of Director.
         """
@@ -57,7 +57,7 @@ class Director(arcade.Window):
         self.shoot_pressed = False
         self.can_shoot = True
         self.shoot_timer = 0
-        
+
 
         # Our physics engine
         self.physics_engine = None
@@ -93,9 +93,9 @@ class Director(arcade.Window):
 
         self.deer2 = Deer(constants.DEER_SPRITE, constants.DEER_SCALING, 1050, 300, -constants.PLAYER_MOVEMENT_SPEED)
         self.scene.add_sprite("Deer", self.deer2)
-        
+
         # Set up character
-        self.nephi = Nephi(constants.NEPHI_SPRITE, constants.NEPHI_SCALING)        
+        self.nephi = Nephi(constants.NEPHI_SPRITE, constants.NEPHI_SCALING)
         self.nephi.center_x = 500
         self.nephi.center_y = 32
         self.scene.add_sprite("Player", self.nephi)
@@ -134,7 +134,7 @@ class Director(arcade.Window):
             self.SCREEN_HEIGHT,
             self.background_menu
         )
- 
+
         #Draw Logo
         self.logo_list = arcade.SpriteList()
         self.logo = arcade.Sprite("nephiHunting/assets/images/new_menu_proto.png", 1)
@@ -144,17 +144,17 @@ class Director(arcade.Window):
         self.logo_list.draw()
 
         output = ""
-        arcade.draw_text(output, 300, 125, arcade.color.WHITE, 24,) 
+        arcade.draw_text(output, 300, 125, arcade.color.WHITE, 24,)
 
     def draw_game_over(self):
-        
+
         arcade.draw_texture_rectangle(
-            self.SCREEN_WIDTH // 2, 
+            self.SCREEN_WIDTH // 2,
             self.SCREEN_HEIGHT // 2,
-            self.SCREEN_WIDTH, 
-            self.SCREEN_HEIGHT, 
+            self.SCREEN_WIDTH,
+            self.SCREEN_HEIGHT,
             self.background_menu)
-        
+
         self.gameover_list = arcade.SpriteList()
         self.gameover = arcade.Sprite("nephiHunting/assets/images/gameover.png")
         self.gameover.center_x = self.SCREEN_WIDTH * 0.5
@@ -162,8 +162,8 @@ class Director(arcade.Window):
         self.gameover_list.append(self.gameover)
         self.gameover_list.draw()
         output = ""
-        arcade.draw_text(output, 300, 125, arcade.color.BLACK, 24,) 
-        
+        arcade.draw_text(output, 300, 125, arcade.color.BLACK, 24,)
+
 
 
     def on_draw(self):
@@ -209,11 +209,11 @@ class Director(arcade.Window):
 
         # Restart game
         if (
-            key == arcade.key.ENTER and 
+            key == arcade.key.ENTER and
             (
                 self.current_state == GameState.GAME_OVER or
                 self.current_state == GameState.MENU
-            )   
+            )
         ):
             self.setup()
             self.current_state = GameState.GAME_RUNNING
@@ -251,12 +251,12 @@ class Director(arcade.Window):
         #updates the scene.
         self.scene.update()
         self.deer2_physics_engine.update()
-        
+
         arrows = arcade.check_for_collision_with_list(self.deer, self.scene.get_sprite_list(constants.LAYER_NAME_ARROWS))
 
 
         for arrow in arrows:
-            
+
             # self.deer.center_x = - 50
             self.deer.reset()
             arcade.play_sound(self.hit_sound, 0.05)
@@ -266,7 +266,7 @@ class Director(arcade.Window):
         arrows = arcade.check_for_collision_with_list(self.deer2, self.scene.get_sprite_list(constants.LAYER_NAME_ARROWS))
 
         for arrow in arrows:
-            
+
             # self.deer2.center_x = - 50
             self.deer2.reset()
             arcade.play_sound(self.hit_sound, 0.05)
@@ -290,7 +290,7 @@ class Director(arcade.Window):
         """Manages the interval between shots"""
 
         # An instance of Arrow class
-        arrow = Arrow()       
+        arrow = Arrow()
         if self.can_shoot:
             if self.shoot_pressed:
                 arrow.shoot(self.nephi.center_x, self.nephi.center_y, self.scene)
@@ -304,7 +304,7 @@ class Director(arcade.Window):
     def trigger_game_over(self):
         # time.sleep(delay)
         self.current_state = GameState.GAME_OVER
-        
+
         self.deer2.reset()
         self.deer.reset()
 
