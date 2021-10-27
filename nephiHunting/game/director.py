@@ -82,6 +82,7 @@ class Director(arcade.Window):
         self.score_level_up = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
         self.score = 0
         self.arrows = 10
+        self.instruction = "Shoot with Q"
 
     def setup(self):
         """Set up the game here. Call this function to restart the game.
@@ -217,6 +218,9 @@ class Director(arcade.Window):
 
         arrow_text = f"Arrows: {self.arrows}"
         arcade.draw_text(arrow_text, 10, 40, arcade.csscolor.WHITE, 18,)
+
+        instruction_text = f"{self.instruction}"
+        arcade.draw_text(instruction_text, 400, 10, arcade.csscolor.WHITE, 18, )
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed.
