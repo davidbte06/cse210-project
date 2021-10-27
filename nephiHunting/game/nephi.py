@@ -29,13 +29,13 @@ class Nephi(arcade.Sprite):
 
         # Loads a left facing texture and a right facing texture.
         # flipped_horizontally=True will mirror the image we load.
-        texture = arcade.load_texture("nephiHunting/assets/images/nephi_shooting.png")
+        texture = arcade.load_texture("assets/images/nephi_shooting.png")
         self.textures.append(texture)
-        texture = arcade.load_texture("nephiHunting/assets/images/nephi_shooting.png", flipped_horizontally=True)
+        texture = arcade.load_texture("assets/images/nephi_shooting.png", flipped_horizontally=True)
         self.textures.append(texture)
-        texture = arcade.load_texture("nephiHunting/assets/images/nephi_shooting_up.png")
+        texture = arcade.load_texture("assets/images/nephi_shooting_up.png")
         self.textures.append(texture)
-        texture = arcade.load_texture("nephiHunting/assets/images/nephi_shooting_up.png", flipped_horizontally=True)
+        texture = arcade.load_texture("assets/images/nephi_shooting_up.png", flipped_horizontally=True)
         self.textures.append(texture)
 
         # By default, face right.
