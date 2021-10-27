@@ -1,6 +1,8 @@
 # Nephi Hunting
 This game is based on the Dog Hunt game, we used the idea and based it on a popular story from the Book of Mormon, when Nephi had to hunt animals in the desert to support his family.
 
+<img src="assets/images/logo.jpg" alt="My cool logo"/>
+
 ## Getting Started
 ---
 Make sure you have Python 3.8.0 or newer and arcade library.
