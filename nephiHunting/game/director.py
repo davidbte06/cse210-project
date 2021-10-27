@@ -7,6 +7,7 @@ import arcade
 import random
 
 from arcade import scene
+from pyglet.libs.win32.constants import TME_QUERY
 from game import constants
 from game.nephi import Nephi
 from game.deer import Deer
@@ -62,6 +63,7 @@ class Director(arcade.Window):
         self.physics_engine = None
 
         self.hit_sound = arcade.load_sound(constants.HIT)
+        self.background_music = arcade.load_sound("nephiHunting/assets/sounds/tribal-ritual.wav")
         # Initialize the game state
         self.current_state = GameState.MENU
 
@@ -77,6 +79,7 @@ class Director(arcade.Window):
         """
         # Initialize Scene
         self.scene = arcade.Scene()
+        arcade.play_sound(self.background_music, 0.05, looping=True)
 
         # Create the Sprite lists
         self.scene.add_sprite_list("Deer")
@@ -229,7 +232,6 @@ class Director(arcade.Window):
 
     def on_update(self, delta_time):
         """Movement and game logic"""
-        
         # Move the player with the physics engine
         self.scene.get_sprite_list("Deer").update()
         self.scene.get_sprite_list("Player").update()

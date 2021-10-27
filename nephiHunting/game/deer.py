@@ -31,8 +31,8 @@ class Deer(arcade.Sprite):
 
         self.center_y = y
 
-        self.initial_direction = direction
-        self.deer_direction = self.initial_direction  + self.more_speed
+        self.initial_direction = direction + self.more_speed
+        self.deer_direction = self.initial_direction
 
         self.bounce = 0
         self.jump_sound = arcade.load_sound(constants.JUMP)
@@ -99,4 +99,4 @@ class Deer(arcade.Sprite):
             self.texture = self.textures[1]
 
     def increase_speed(self):
-        self.more_speed += 50
+        self.more_speed += 100
