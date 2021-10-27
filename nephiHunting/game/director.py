@@ -16,7 +16,7 @@ from game.arrow import Arrow
 from enum import Enum
 
 class GameState(Enum):
-
+    """It defines the actual state of the game."""
     MENU = 1
     GAME_RUNNING = 2
     TARGET_DEFEATED = 3
@@ -37,6 +37,15 @@ class Director(arcade.Window):
         Shoot_pressed (boolean): Whether the key is pressed or not.
         Can_shoot (boolean): Wether the player will be able to shoot or not.
         Shoot_timer (Int): The time between shots.
+        physics_engine (Arcade's class): Updates the movement of the actors.
+        hit_sound (Arcade's class): It loads the sounds for the hit.
+        background_music (Arcade's class): It loads the sounds for the background.
+        current_state (Arcade's class): It calls a menu from Arcade's library.
+        SCREEN_WIDTH (Int): The width for the window.
+        SCREEN_HEIGHT (Int): The height for the window.
+        score_level_up (List): A list of numbers for the score.
+        score (Int): Inicializes the score in 0.
+        arrows (Int): Places the arrows the player has.
     """
 
     def __init__(self):
@@ -76,6 +85,8 @@ class Director(arcade.Window):
 
     def setup(self):
         """Set up the game here. Call this function to restart the game.
+        Args:
+            self (Director): an instance of Director.
         """
         # Initialize Scene
         self.scene = arcade.Scene()
@@ -127,6 +138,10 @@ class Director(arcade.Window):
         # self.scene.add_sprite("Arrow", self.arrow_sprite)
 
     def draw_menu(self):
+        """It creates the menu for the game.
+        Args:
+            self (Director): an instance of Director.
+        """
         arcade.draw_texture_rectangle(
             self.SCREEN_WIDTH // 2,
             self.SCREEN_HEIGHT // 2,
@@ -147,7 +162,10 @@ class Director(arcade.Window):
         arcade.draw_text(output, 300, 125, arcade.color.WHITE, 24,)
 
     def draw_game_over(self):
-
+        """ Stops the game when the conditions are met.
+        Args:
+            self (Director): an instance of Director.
+        """
         arcade.draw_texture_rectangle(
             self.SCREEN_WIDTH // 2,
             self.SCREEN_HEIGHT // 2,
@@ -167,7 +185,10 @@ class Director(arcade.Window):
 
 
     def on_draw(self):
-        """Render the screen"""
+        """Render the screen.
+        Args:
+            self (Director): an instance of Director.
+        """
 
         arcade.start_render()
         # Draw the background texture
@@ -198,7 +219,11 @@ class Director(arcade.Window):
         arcade.draw_text(arrow_text, 10, 40, arcade.csscolor.WHITE, 18,)
 
     def on_key_press(self, key, modifiers):
-        """Called whenever a key is pressed."""
+        """Called whenever a key is pressed.
+        Args:
+            self (Director): an instance of Director.
+            key (Input): A key from the keyboard to control the actor.
+            """
 
         if key == arcade.key.LEFT or key == arcade.key.A:
             self.nephi.change_x = -constants.PLAYER_MOVEMENT_SPEED
@@ -220,7 +245,11 @@ class Director(arcade.Window):
 
 
     def on_key_release(self, key, modifiers):
-        """Called when the user releases a key."""
+        """Called when the user releases a key.
+        Args:
+            self (Director): an instance of Director.
+            key (Input): A key from the keyboard to control the actor.
+        """
 
         if key == arcade.key.LEFT or key == arcade.key.A:
             self.nephi.change_x = 0
@@ -231,7 +260,11 @@ class Director(arcade.Window):
 
 
     def on_update(self, delta_time):
-        """Movement and game logic"""
+        """Movement and game logic.
+        Args:
+            self (Director): an instance of Director.
+            delta_time (not called): Not called.
+        """
         # Move the player with the physics engine
         self.scene.get_sprite_list("Deer").update()
         self.scene.get_sprite_list("Player").update()
@@ -287,7 +320,10 @@ class Director(arcade.Window):
 
 
     def manage_shoot_interval(self):
-        """Manages the interval between shots"""
+        """Manages the interval between shots.
+        Args:
+            self (Director): an instance of Director.
+        """
 
         # An instance of Arrow class
         arrow = Arrow()
@@ -302,6 +338,10 @@ class Director(arcade.Window):
                 self.shoot_timer = 0
 
     def trigger_game_over(self):
+        """ It determines wether the game is over.
+        Args:
+            self (Director): an instance of Director.
+        """
         # time.sleep(delay)
         self.current_state = GameState.GAME_OVER
 
