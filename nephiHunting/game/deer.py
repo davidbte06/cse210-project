@@ -22,11 +22,7 @@ class Deer(arcade.Sprite):
         """The class constructor.
         
         Args:
-            self (Deer): an instance of Deer.
-            sprite (an image): An image from Arcade library.
-            scale (float): a number to determine positions.
-            x (Point): A point in the window.
-            y (Point): A point in the window.
+            self (Director): an instance of Director.
         """
         arcade.Sprite.__init__(self, sprite, scale)
         self.more_speed = 0
@@ -56,15 +52,6 @@ class Deer(arcade.Sprite):
 
 
     def move(self, b1, b2, b3, b4):
-        """Control the movements of deers
-        
-        Args:
-            self (Deer): and instance of deer.
-            b1 (Point): A point to change direction.
-            b2 (Point): A point to change direction.
-            b3 (Point): A point to change direction.
-            b4 (Point): A point to change direction.    
-            """
         # reference_num = 600
         self.change_x = self.deer_direction
 
@@ -99,20 +86,12 @@ class Deer(arcade.Sprite):
             arcade.play_sound(self.jump_sound, 0.05)
 
     def reset(self):
-        """This method resets the game.
-        
-        Args: 
-            self (Deer): An instance of Deer."""
         self.center_x = self.initial_x
         self.deer_direction = self.initial_direction
         self.bounce = 0
 
     def update(self):
-        """ Updates to right or left the direction
 
-        Args: 
-            self (Deer): An instance of Deer.
-        """
         # Figure out if we should face left or right
         if self.deer_direction == 5:
             self.texture = self.textures[0]
@@ -120,7 +99,4 @@ class Deer(arcade.Sprite):
             self.texture = self.textures[1]
 
     def increase_speed(self):
-        """ Increases the speed of the object.
-        Args: 
-            self (Deer): An instance of Deer."""
         self.more_speed += 100
