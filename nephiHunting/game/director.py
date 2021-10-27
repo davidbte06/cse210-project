@@ -68,6 +68,7 @@ class Director(arcade.Window):
         self.SCREEN_WIDTH = 1000
         self.SCREEN_HEIGHT = 650
 
+        self.score_level_up = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
         self.score = 0
         self.arrows = 10
 
@@ -190,8 +191,8 @@ class Director(arcade.Window):
         score_text = f"Score: {self.score}"
         arcade.draw_text(score_text, 10, 10, arcade.csscolor.WHITE, 18,)
 
-        # arrow_text = f"Arrows: {self.arrows}"
-        # arcade.draw_text(arrow_text, 700, 10, arcade.csscolor.WHITE, 18,)
+        arrow_text = f"Arrows: {self.arrows}"
+        arcade.draw_text(arrow_text, 10, 40, arcade.csscolor.WHITE, 18,)
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed."""
@@ -239,6 +240,11 @@ class Director(arcade.Window):
         self.physics_engine.update()
         self.deer_physics_engine.update()
         self.manage_shoot_interval()
+        self.nephi.shooting_up()
+
+        if self.score in self.score_level_up:
+            self.deer.increase_speed()
+            self.deer2.increase_speed()
 
         #updates the scene.
         self.scene.update()
@@ -253,6 +259,7 @@ class Director(arcade.Window):
             self.deer.reset()
             arcade.play_sound(self.hit_sound, 0.05)
             self.score += 1
+            arrow.remove_from_sprite_lists()
 
         arrows = arcade.check_for_collision_with_list(self.deer2, self.scene.get_sprite_list(constants.LAYER_NAME_ARROWS))
 
@@ -262,9 +269,20 @@ class Director(arcade.Window):
             self.deer2.reset()
             arcade.play_sound(self.hit_sound, 0.05)
             self.score += 1
+            arrow.remove_from_sprite_lists()
 
-        if self.score == 10:
+        # if self.score == 10:
+        #     self.trigger_game_over()
+        if self.arrows == 0:
             self.trigger_game_over()
+
+        remove_arrows = self.scene.get_sprite_list(constants.LAYER_NAME_ARROWS)
+
+        for arrow in remove_arrows:
+            if arrow.center_y > 700:
+                arrow.remove_from_sprite_lists()
+                self.arrows -= 1
+
 
     def manage_shoot_interval(self):
         """Manages the interval between shots"""

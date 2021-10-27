@@ -25,13 +25,14 @@ class Deer(arcade.Sprite):
             self (Director): an instance of Director.
         """
         arcade.Sprite.__init__(self, sprite, scale)
+        self.more_speed = 0
         self.initial_x = x
         self.center_x = self.initial_x
 
         self.center_y = y
 
         self.initial_direction = direction
-        self.deer_direction = self.initial_direction
+        self.deer_direction = self.initial_direction  + self.more_speed
 
         self.bounce = 0
         self.jump_sound = arcade.load_sound(constants.JUMP)
@@ -96,3 +97,6 @@ class Deer(arcade.Sprite):
             self.texture = self.textures[0]
         elif self.deer_direction == -5:
             self.texture = self.textures[1]
+
+    def increase_speed(self):
+        self.more_speed += 50
