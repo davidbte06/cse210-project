@@ -211,6 +211,7 @@ class Director(arcade.Window):
         elif self.current_state == GameState.GAME_RUNNING:
             self.on_draw
         else:
+            
             self.draw_game_over()
 
         score_text = f"Score: {self.score}"
